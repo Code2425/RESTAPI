@@ -27,10 +27,6 @@ public class FileUploadService {
 	@Produces({ "text/plain", "image/png" })
 	public Response getFile() throws IOException {
 
-		java.nio.file.Path file1 = Paths.get("d:\\Demofile.txt");
-		SaveMetadata saveMetadata = new SaveMetadata();
-		saveMetadata.saveMetaData(file1);
-
 		File file = new File("d:\\Demofile.txt");
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition",
@@ -47,6 +43,10 @@ public class FileUploadService {
 			@FormDataParam("file") FormDataContentDisposition fileDetail,
 			@FormDataParam("path") String path) throws IOException {
 
+		SaveMetadata saveMetadata = new SaveMetadata();
+		saveMetadata.saveMetadata();
+		
+		
 		String uploadedFileLocation = path + fileDetail.getFileName();
 
 		// save it
