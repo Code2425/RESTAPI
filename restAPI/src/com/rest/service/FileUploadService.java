@@ -1,4 +1,4 @@
-package com.javatpoint.rest;
+package com.rest.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
