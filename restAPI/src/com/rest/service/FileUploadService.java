@@ -5,54 +5,53 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.Date;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
-
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/files")
 public class FileUploadService {
 
-	//To GET The file.
+	// To GET The file.
 	@GET
 	@Path("/getfile")
 	@Produces({ "text/plain", "image/png" })
-	public Response getFile() {
+	public Response getFile() throws IOException {
 
-		File file = new File("d:\\test.jpeg");
+		java.nio.file.Path file1 = Paths.get("d:\\Demofile.txt");
+		SaveMetadata saveMetadata = new SaveMetadata();
+		saveMetadata.saveMetaData(file1);
 
+		File file = new File("d:\\Demofile.txt");
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition",
 				"attachment; filename=DisplayName-Demofile.txt");
 		return response.build();
 	}
 
-	//to upload the file
+	// to upload the file
 	@POST
 	@Path("/upload")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@Context HttpHeaders headers,
+	@Consumes("multipart/form-data")
+	public Response uploadFile(
 			@FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail,
-			@FormDataParam("path") String path) {
-		MediaType mediatype = headers.getMediaType();
+			@FormDataParam("path") String path) throws IOException {
+
 		String uploadedFileLocation = path + fileDetail.getFileName();
 
 		// save it
 		writeToFile(uploadedInputStream, uploadedFileLocation);
-		String output = "File uploaded to : " + uploadedFileLocation
-				+ "\n referer is :" + mediatype;
+		String output = "File uploaded to : " + uploadedFileLocation;				
 		return Response.status(201).entity(output).encoding(output)
 				.lastModified(new Date()).build();
 	}

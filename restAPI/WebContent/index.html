@@ -6,9 +6,24 @@
 </head>
 <body>
 	<h3>FILE UPLOAD UI</h3>
-	<form action="rest/files/upload" method="post"
+
+	<form action="rest/files/getfile" method="GET"
 		enctype="multipart/form-data">
 		<table border="2px">
+			<tr>
+				<td>GET FILE</td>
+			</tr>
+			<br />
+			<br />
+			<tr>
+				<td><input type=submit value="Get File" /></td>
+			</tr>
+		</table>
+	</form>
+
+	<form action="rest/files/upload" method="post"
+		enctype="multipart/form-data">
+		<table border='2px'>
 			<tr>
 				<td>SELECT file : <input type="file" name="file" size="45" />
 				<td>
@@ -23,8 +38,9 @@
 			<br />
 			<tr>
 				<td><input type="submit" value="Upload File" /></td>
-			</tr>			
+			</tr>
 		</table>
 	</form>
+
 </body>
 </html>
