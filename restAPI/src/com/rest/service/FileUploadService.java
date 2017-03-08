@@ -27,7 +27,7 @@ public class FileUploadService {
 	@Produces({ "text/plain", "image/png" })
 	public Response getFile() throws IOException {
 
-		File file = new File("d:\\Demofile.txt");
+		File file = new File("d:\\test\\Demofile.txt");
 		ResponseBuilder response = Response.ok((Object) file);
 		response.header("Content-Disposition",
 				"attachment; filename=DisplayName-Demofile.txt");
@@ -43,8 +43,9 @@ public class FileUploadService {
 			@FormDataParam("file") FormDataContentDisposition fileDetail,
 			@FormDataParam("path") String path) throws IOException {
 
+		File file = new File(path);
 		SaveMetadata saveMetadata = new SaveMetadata();
-		saveMetadata.saveMetadata();
+		saveMetadata.saveMetadata(file);
 		
 		
 		String uploadedFileLocation = path + fileDetail.getFileName();
