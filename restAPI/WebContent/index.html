@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>RESTAPI for FILE upload and Download</title>
+</head>
+<body>
+	<h3>FILE UPLOAD UI</h3>
+	<form action="rest/files/upload" method="post"
+		enctype="multipart/form-data">
+		<table border="2px">
+			<tr>
+				<td>SELECT file : <input type="file" name="file" size="45" />
+				<td>
+			</tr>
+			<br />
+			<br />
+			<tr>
+				<td>SAVE to Path : <input type="text" name="path" />
+				</td>
+			</tr>
+			<br />
+			<br />
+			<tr>
+				<td><input type="submit" value="Upload File" /></td>
+			</tr>			
+		</table>
+	</form>
+</body>
+</html>
